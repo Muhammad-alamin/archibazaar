@@ -60,6 +60,7 @@ class ProductController extends Controller
         $data['product_name'] = $request->product_name;
         $data['supplier_name'] = $request->supplier_name;
         $data['description'] = $request->description;
+        $data['location'] = $request->country;
         $data['specification'] = $request->specification;
         $data['product_approval'] = 'Unapproved';
 
@@ -174,6 +175,7 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->supplier_name = $request->supplier_name;
         $product->description = $request->description;
+        $product->location = $request->country;
         $product->specification = $request->specification;
         $product->product_approval = 'Approved';
 

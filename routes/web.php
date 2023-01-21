@@ -78,5 +78,36 @@ Route::get('edit/professional/{id}','Admin\ProfessionalController@edit')->name('
 Route::post('update/professional/{id}','Admin\ProfessionalController@update')->name('admin.professional.update');
 Route::get('delete/professional/{id}','Admin\ProfessionalController@delete')->name('admin.professional.delete');
 
+
+//projects
+Route::get('create/projects','Admin\projectsController@view')->name('admin.projects');
+Route::get('projects/list','Admin\projectsController@index')->name('admin.projects.list');
+Route::post('store/projects','Admin\projectsController@store')->name('admin.projects.store');
+Route::get('edit/projects/{id}','Admin\projectsController@edit')->name('admin.projects.edit');
+Route::post('update/projects/{id}','Admin\projectsController@update')->name('admin.projects.update');
+Route::get('delete/projects/{id}','Admin\projectsController@delete')->name('admin.projects.delete');
+
+//products
+Route::get('admin/create/products','Admin\ProductsController@view')->name('admin.products');
+Route::get('admin/products/list','Admin\ProductsController@index')->name('admin.products.list');
+Route::post('admin/store/products','Admin\ProductsController@store')->name('admin.products.store');
+Route::get('admin/edit/products/{id}','Admin\ProductsController@edit')->name('admin.products.edit');
+Route::post('admin/update/products/{id}','Admin\ProductsController@update')->name('admin.products.update');
+Route::get('admin/delete/products/{id}','Admin\ProductsController@delete')->name('admin.products.delete');
+
+//articles
+Route::get('admin/create/articles','Admin\ArticlesController@view')->name('admin.articles');
+Route::get('admin/articles/list','Admin\ArticlesController@index')->name('admin.articles.list');
+Route::post('admin/store/articles','Admin\ArticlesController@store')->name('admin.articles.store');
+Route::get('admin/edit/articles/{id}','Admin\ArticlesController@edit')->name('admin.articles.edit');
+Route::post('admin/update/articles/{id}','Admin\ArticlesController@update')->name('admin.articles.update');
+Route::get('admin/delete/articles/{id}','Admin\ArticlesController@delete')->name('admin.articles.delete');
+
+//admin
+Route::get('/admin-profile','Admin\ProfileController@index')->name('admin.profile');
+Route::get('/admin-profile/pic','Admin\ProfileController@updatePic')->name('admin.profile.pic');
+Route::post('/admin-profile-update/{id}','Admin\ProfileController@updateAdmin')->name('admin.profile.update');
+Route::post('/admin-profile-pic-update/{id}','Admin\ProfileController@updateAdminPic')->name('admin.profile.pic.update');
+
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -102,12 +102,12 @@
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.projects') }}">
                                         Add projects
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.projects.list') }}">
                                         List of projects
                                     </a>
                                 </li>
@@ -120,12 +120,12 @@
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.products') }}">
                                         Add Product
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.products.list') }}">
                                         List of Product
                                     </a>
                                 </li>
@@ -138,12 +138,12 @@
                             </a>
                             <ul class="nav nav-children">
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.articles') }}">
                                         Add articles
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="ecommerce-dashboard.html">
+                                    <a class="nav-link" href="{{ route('admin.articles.list') }}">
                                         List of articles
                                     </a>
                                 </li>
