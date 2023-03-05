@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -54,7 +54,7 @@
 		<script src="{{ asset('front/assets/vendor/modernizr/modernizr.min.js') }}"></script>
 
 	</head>
-	<body data-plugin-page-transition>
+	<body>
 
 		<div class="body">
 			<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
@@ -65,8 +65,8 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index.html">
-                                            <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-											{{-- <img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="img/logo-default-slim.png"> --}}
+                                            {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+											<img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 										</a>
 									</div>
 								</div>
@@ -77,57 +77,75 @@
 										<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
-                                                    <li class="dropdown">
-														<a class="dropdown-item dropdown-toggle active" href="{{ route('home') }}">
+                                                    <li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('home') }}">
 															Home
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle active" href="{{ route('professionalDetails') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('professionals') }}">
 															Proffesionals
 														</a>
 													</li>
-													<li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('projects') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('projects') }}">
 															Projects
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('products') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('front.products') }}">
 															Products
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('articles') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('articles') }}">
 															Articles
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="#">
-															<i class="icon-user text-color-dark font-weight-bold"></i>
-														</a>
+                                                    @if (Route::has('login') && Auth::check())
+                                                    <li class="nav-item">
+														@if(auth()->user()->role == 'supplier')
+                                                        <a href="{{ route('supplier.profile') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @elseif (auth()->user()->role == 'admin')
+                                                        <a href="{{ route('admin.dashboard') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @else
+                                                        <a href="" class="nav-link border-bottom-0">
+                                                            <{{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @endif
 													</li>
+                                                    @elseif (Route::has('login') && !Auth::check())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link border-bottom-0" href="{{ route('login') }}">
+                                                         <em class="icon ni ni-signout"></em><span>Sign In</span>
+                                                     </a>
+                                                    </li>
+                                                    @endif
 												</ul>
 											</nav>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
-									</div>
-									<div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-										<div class="header-nav-feature header-nav-features-search d-inline-flex">
-											<a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-											<div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
-												<form role="search" action="page-search-results.html" method="get">
-													<div class="simple-search input-group">
-														<input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
-														<button class="btn" type="submit">
-															<i class="fas fa-search header-nav-top-icon"></i>
-														</button>
-													</div>
-												</form>
-											</div>
-										</div>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="header-nav-features header-nav-features-no-border header-nav-features-md-show-border d-none d-md-inline-flex">
+                                            <div class="header-nav-feature header-nav-features-search d-inline-flex">
+                                                <a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+                                                <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
+                                                    <form role="search" action="{{ route('professional.search') }}" method="get">
+                                                        <div class="simple-search input-group">
+                                                            <input class="form-control text-1" iid="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
+                                                            <button class="btn" type="submit">
+                                                                <i class="fas fa-search header-nav-top-icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -153,37 +171,30 @@
 							<div class="thumb-gallery-wrapper">
 								<div class="thumb-gallery-detail owl-carousel owl-theme manual nav-inside nav-style-1 nav-dark mb-3">
 									<div>
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png" data-zoom-image="front/assets/img/demos/business-consulting/slides/product.png">
+										<img alt="" class="img-fluid" src="{{ asset($products->image) }}" data-zoom-image="{{ asset($products->image) }}">
 									</div>
-									<div>
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png" data-zoom-image="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div>
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png" data-zoom-image="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div>
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png" data-zoom-image="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div>
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png" data-zoom-image="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
+                                    @php($images = json_decode($products->multiple_image))
+                                    @if($images)
+                                    @foreach($images as $eachimage)
+                                    <div>
+                                    <img alt="" class="img-fluid" src="{{ asset('images/admin/products/multiple_image/'.$eachimage)}}" data-zoom-image="{{ $products->image }}">
+                                    </div>
+                                    @endforeach
+                                    @endif
+
 								</div>
 								<div class="thumb-gallery-thumbs owl-carousel owl-theme manual thumb-gallery-thumbs">
 									<div class="cur-pointer">
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png">
+										<img alt="" class="img-fluid" src="{{ asset($products->image) }}">
 									</div>
-									<div class="cur-pointer">
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div class="cur-pointer">
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div class="cur-pointer">
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
-									<div class="cur-pointer">
-										<img alt="" class="img-fluid" src="front/assets/img/demos/business-consulting/slides/product.png">
-									</div>
+									@php($images = json_decode($products->multiple_image))
+                                    @if($images)
+                                    @foreach($images as $eachimage)
+                                    <div>
+                                    <img alt="" class="img-fluid" src="{{ asset('images/admin/products/multiple_image/'.$eachimage)}}" data-zoom-image="{{ $products->image }}">
+                                    </div>
+                                    @endforeach
+                                    @endif
 								</div>
 							</div>
 
@@ -193,31 +204,20 @@
 
 							<div class="summary entry-summary position-relative">
 
-								<h1 class="mb-0 font-weight-bold text-7">Name of Product</h1>
+								<h1 class="mb-0 font-weight-bold text-7">{{ $products->product_name }}</h1>
 
 								<div class="pb-0 clearfix d-flex align-items-center">
 									<div title="Rated 3 out of 5" class="float-start">
 										<input type="text" class="d-none" value="3" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs'}">
 									</div>
-
-									<div class="review-num">
-                                        <div class="d-block pb-2">
-                                            <input type="text" class="rating-invisible" value="4" title="" data-plugin-star-rating data-plugin-options="{'color': 'tertiary', 'size':'xs'}">
-                                        </div>
-										<a href="#description" class="text-decoration-none text-color-default text-color-hover-primary" data-hash data-hash-offset="0" data-hash-offset-lg="75" data-hash-trigger-click=".nav-link-reviews" data-hash-trigger-click-delay="1000">
-											<span class="count text-color-inherit" itemprop="ratingCount">(2</span> reviews)
-										</a>
-									</div>
-								</div>
-
+                                </div>
 								<p class="price mb-3">
-									<span class="sale text-color-primary" style="margin-left: 10px;">$999</span>
-									<span class="amount">$1200</span>
+									<span class="sale text-color-primary" style="margin-left: 10px;">${{ $products->discount_price }}</span>
+									<span class="amount">${{ $products->regular_price }}</span>
 								</p>
 
-								<p class="text-3-5 mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Lorem ipsum dolor sit amet.</p>
+								<p class="text-3-5 mb-3">{{ $products->description }}</p>
 
-								<form enctype="multipart/form-data" method="post" class="cart" action="shop-cart.html">
 
 									<hr>
 									<div class="quantity quantity-lg">
@@ -225,16 +225,33 @@
 										<input type="text" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
 										<input type="button" class="plus text-color-hover-light bg-color-hover-primary border-color-hover-primary" value="+">
 									</div>
-									<button type="submit" class="btn btn-primary btn-modern text-uppercase bg-color-hover-primary border-color-hover-primary">Buy Now</button>
+									<a  class="btn btn-primary btn-modern text-uppercase bg-color-hover-primary border-color-hover-primary">Buy Now</a>
 
-                                    <button type="submit" class="btn btn-dark btn-modern text-uppercase bg-color-hover-primary border-color-hover-primary">Contact Supplier</button>
+                                    <a class="btn btn-modern btn-dark" data-bs-toggle="modal" data-bs-target="#smallModal">
+										Contact Supplier
+									</a>
 
+                                    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="smallModalLabel">Supplier Address / Phone no.</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+												</div>
+												<div class="modal-body">
+													<p>{{ $products->contact_supplier }}</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
                                     <hr>
-								</form>
 
 								<div class="d-flex align-items-center">
-									<a href="#" class="btn btn-modern btn-light mb-2" style="margin-right: 10px;">Request Brouchers</a>
-									<a href="#" class="btn btn-modern btn-light mb-2">Download Drawing files</a>
+									<a href="{{ route('download.catalouges', encrypt($products->id)) }}" class="btn btn-modern btn-light mb-2" style="margin-right: 10px;">Download Catalouges</a>
+									<a href="{{ route('download.drawing', encrypt($products->id)) }}" class="btn btn-modern btn-light mb-2">Download Drawing files</a>
 								</div>
 
 							</div>
@@ -255,34 +272,17 @@
 											<tbody>
 												<tr>
 													<th class="border-top-0">
-														Widht:
+														Size:
 													</th>
 													<td class="border-top-0">
-														300 mm
-													</td>
-												</tr>
-												<tr>
-													<th>
-														Height:
-													</th>
-													<td>
-														700 mm
-													</td>
-												</tr>
-												<tr>
-													<th>
-														Length:
-													</th>
-													<td>
-														520 mm
+														{{ $products->size }}
 													</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									<div class="tab-pane px-0 py-3" id="productInfo">
-										<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. </p>
-										<p class="m-0">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+										<p>{{ $products->specification }}</p>
 									</div>
 									</div>
 								</div>
@@ -293,72 +293,73 @@
 
 			</div>
         </div>
-			<footer id="footer" class="footer-top-border bg-color-light-scale-1">
-				<div class="container py-4">
-					<div class="row py-5">
-						<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-							<h5 class="text-3 text-color-dark mb-3">NEWSLETTER</h5>
-							<p class="pe-1">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
-							<div class="alert alert-success d-none" id="newsletterSuccess">
-								<strong>Success!</strong> You've been added to our email list.
-							</div>
-							<div class="alert alert-danger d-none" id="newsletterError"></div>
-							<form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="me-4 mb-3 mb-md-0">
-								<div class="input-group input-group-rounded">
-									<input class="form-control form-control-sm bg-light" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="email">
-									<button class="btn btn-light text-color-dark" type="submit"><strong>GO!</strong></button>
-								</div>
-							</form>
-						</div>
-						<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<h5 class="text-3 text-color-dark mb-3">LATEST TWEETS</h5>
-							<div id="tweet" class="twitter twitter-dark" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
-								<p>Please wait...</p>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
+        <footer id="footer" class="footer-top-border bg-color-light-scale-1">
+            <div class="container py-4">
+                <div class="row py-5">
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <h5 class="text-3 text-color-dark mb-3">NEWSLETTER</h5>
+                        <p class="pe-1">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
+                        <div class="alert alert-success d-none" id="newsletterSuccess">
+                            <strong>Success!</strong> You've been added to our email list.
+                        </div>
+                        <div class="alert alert-danger d-none" id="newsletterError"></div>
+                        <form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="me-4 mb-3 mb-md-0">
+                            <div class="input-group input-group-rounded">
+                                <input class="form-control form-control-sm bg-light" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="email">
+                                <button class="btn btn-light text-color-dark" type="submit"><strong>GO!</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <h5 class="text-3 text-color-dark mb-3">LATEST TWEETS</h5>
+                        <div id="tweet" class="twitter twitter-dark" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
+                            <p>Please wait...</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                        <h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+                        <p class="m-0">Archibazaar</p>
+                        <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+                            <p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+                            <p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
-						</div>
-						<div class="col-md-6 col-lg-2">
-							<h5 class="text-3 text-color-dark mb-3">FOLLOW US</h5>
-							<ul class="header-social-icons social-icons">
-								<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
-								<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
-								<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="footer-copyright footer-top-border bg-color-light-scale-1">
-					<div class="container py-2">
-						<div class="row py-4">
-							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
-								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
-								</a>
-							</div>
-							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-								<p>© Copyright 2023. All Rights Reserved.</p>
-							</div>
-							<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
-								<nav id="sub-menu">
-									<ul>
-										<li><i class="fas fa-angle-right"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-primary"> FAQ's</a></li>
-										<li><i class="fas fa-angle-right"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-primary"> Sitemap</a></li>
-										<li><i class="fas fa-angle-right"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-primary"> Contact Us</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <h5 class="text-3 text-color-dark mb-3">FOLLOW US</h5>
+                        <ul class="header-social-icons social-icons">
+                            <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
+                            <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
+                            <li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright footer-top-border bg-color-light-scale-1">
+                <div class="container py-2">
+                    <div class="row py-4">
+                        <div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
+                            <a href="index.html" class="logo pe-0 pe-lg-3">
+                                {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+                                <img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
+                            </a>
+                        </div>
+                        <div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
+                            <p>© Copyright 2023. All Rights Reserved.</p>
+                        </div>
+                        <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
+                            <nav id="sub-menu">
+                                <ul>
+                                    <li><i class="fas fa-angle-right"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-primary"> FAQ's</a></li>
+                                    <li><i class="fas fa-angle-right"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-primary"> Sitemap</a></li>
+                                    <li><i class="fas fa-angle-right"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-primary"> Contact Us</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 		</div>
 
 		<!-- Vendor -->

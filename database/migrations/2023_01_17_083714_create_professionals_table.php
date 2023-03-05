@@ -25,9 +25,12 @@ class CreateProfessionalsTable extends Migration
             $table->string('website')->nullable();
             $table->string('instagram')->nullable();
             $table->string('facebook')->nullable();
-            $table->string('about')->nullable();
+            $table->longText('about')->nullable();
             $table->string('company_name')->nullable();
+            $table->string('visiting_time')->nullable();
             $table->string('image')->nullable();
+            $table->string('pro_pic')->nullable();
+
             $table->timestamps();
         });
     }

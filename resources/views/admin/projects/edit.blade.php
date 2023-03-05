@@ -138,7 +138,7 @@
                                                  @if(isset($images))
                                                 @foreach($images as $eachimage)
                                                  @if (isset($eachimage))
-                                                 <img src="{{asset('images/projects/multipl_image/'.$eachimage)}}" style="width:40px;">
+                                                 <img src="{{asset('images/projects/multiple_image/'.$eachimage)}}" style="width:40px;">
                                                  @endif
                                                  @endforeach
                                                  @endif

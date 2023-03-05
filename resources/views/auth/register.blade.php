@@ -76,7 +76,7 @@
 														</a>
 													</li>
 													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle " href="{{ route('professionalDetails') }}">
+														<a class="dropdown-item dropdown-toggle " href="">
 															Proffesionals
 														</a>
 													</li>
@@ -86,7 +86,7 @@
 														</a>
 													</li>
 													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('products') }}">
+														<a class="dropdown-item dropdown-toggle" href="">
 															Products
 														</a>
 													</li>
@@ -543,9 +543,10 @@
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+							<p class="m-0">Archibazaar</p>
+                            <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+								<p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
 						</div>
 						<div class="col-md-6 col-lg-2">
@@ -563,8 +564,8 @@
 						<div class="row py-4">
 							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
+                                    {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+									<img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
 								</a>
 							</div>
 							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">

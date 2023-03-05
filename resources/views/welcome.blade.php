@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -58,8 +58,8 @@
 								<div class="header-row mt-2">
 									<div class="header-logo">
 										<a href="{{route('home')}}">
-											{{-- <img alt="logo" width="100" height="48" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src=""> --}}
-                                            <h4 class="text-color-white font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">logo</h4>
+											<img alt="logo" width="100" height="48" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
+                                            {{-- <h4 class="text-color-white font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">logo</h4> --}}
 										</a>
 									</div>
 								</div>
@@ -71,7 +71,7 @@
 											<nav class="collapse">
 												<ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
 													<li class="dropdown dropdown-mega order-1">
-														<a class="" href="{{ route('professionalDetails') }}" style="color: white;">
+														<a class="" href="{{ route('professionals') }}" style="color: white;">
 															Proffesionals
 														</a>
 													</li>
@@ -81,7 +81,7 @@
 														</a>
 													</li>
 													<li class="dropdown order-3">
-														<a class="" href="{{ route('products') }}" style="color: white;">
+														<a class="" href="{{ route('front.products') }}" style="color: white;">
 															Products
 														</a>
 													</li>
@@ -91,15 +91,15 @@
 														</a>
 													</li>
 													<li class="dropdown order-6">
-														<a class="" href="#" style="color: white;">
+														<a class="" href="{{ route('supplier_register') }}" style="color: white;">
 															join us
 														</a>
 													</li>
 													<li class="align-items-center d-none d-lg-flex order-5 px-5 mx-2">
 														<span class="header-logo">
 															<a href="{{route ('home')}}" class="w-100 text-center">
-                                                                <h4 class="text-color-white font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">logo</h4>
-																{{-- <img alt="" width="100" height="48" data-sticky-width="200" data-sticky-height="100" data-sticky-top="72" src="{{ asset('front/assets/img/demos/business-consulting/slides/logotransparent.png') }}"> --}}
+                                                                {{-- <h4 class="text-color-white font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">logo</h4> --}}
+																<img alt="" width="100" height="48" data-sticky-width="200" data-sticky-height="100" data-sticky-top="72" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 															</a>
 														</span>
 													</li>
@@ -109,9 +109,9 @@
                                         <div class="header-column order-1 order-lg-2">
 											<div class="header-row justify-content-end">
 												<div class="header-nav-features header-nav-features-no-border w-75 w-auto-mobile d-none d-sm-flex">
-													<form role="search" class="d-flex w-100" action="page-search-results.html" method="get">
+													<form role="search" class="d-flex w-100" action="{{ route('professional.search') }}" method="get">
 														<div class="simple-search input-group w-100">
-															<input class="form-control border-0" id="headerSearch" name="q" type="search" value="" placeholder="start your search...">
+															<input class="form-control border-0" id="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
 															<button class="btn btn-light" type="submit">
 																<i class="fa fa-search header-nav-top-icon"></i>
 															</button>
@@ -144,13 +144,17 @@
                                                             <ul class="nav nav-list-simple flex-column text-3">
                                                                 @if(auth()->user()->role == 'supplier')
                                                                 <li class="nav-item"><a class="nav-link" href="{{ route('supplier.profile') }}">Profile</a></li>
+                                                                @elseif (auth()->user()->role == 'admin')
+                                                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                                                                 @else
-                                                                <li class="nav-item"><a class="nav-link" href="">Profile</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="{{ route('professional.profile') }}">Profile</a></li>
                                                                 @endif
                                                                 @if(auth()->user()->role == 'supplier')
-                                                                <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="{{ route('product.create') }}">Product</a></li>
+                                                                @elseif (auth()->user()->role == 'admin')
+                                                                <li class="nav-item"></li>
                                                                 @else
-                                                                <li class="nav-item"><a class="nav-link" href="#">Project</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="{{ route('project.create') }}">Project</a></li>
                                                                 @endif
                                                                 <li class="nav-item">
                                                                     <a class="nav-link border-bottom-0" href="{{ route('logout') }}"
@@ -196,51 +200,15 @@
 				<div id="home" class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-horizontal-center show-dots-hover nav-inside nav-inside-plus nav-dark nav-md nav-font-size-md show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000}" style="height: 100vh;">
 					<div class="owl-stage-outer">
 						<div class="owl-stage">
-
-							<!-- Carousel Slide 1 -->
-							<div class="owl-item position-relative pt-5" style="background-image: url(front/assets/img/demos/business-consulting/slides/slider2.jpg); background-size: cover; background-position: center; background-color: #35383d;">
+							@foreach ($sliders as $slider)
+								<!-- Carousel Slide 1 -->
+							<div class="owl-item position-relative pt-5" style="background-image: url({{ $slider->slider_image }}); background-size: cover; background-position: center; background-color: #35383d;">
 								<div class="container position-relative z-index-3 h-100">
 									<div class="row justify-content-center align-items-center h-100">
 									</div>
 								</div>
 							</div>
-
-							<!-- Carousel Slide 2 -->
-							<div class="owl-item position-relative overlay overlay-show overlay-op-8 pt-5" style="background-image: url(front/assets/img/demos/business-consulting/slides/slider1.jpg); background-size: cover; background-position: center;">
-								<div class="container position-relative z-index-3 h-100">
-									<div class="row justify-content-center align-items-center h-100">
-										<div class="col-lg-6">
-											<div class="d-flex flex-column align-items-center">
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Carousel Slide 3 -->
-							<div class="owl-item position-relative overlay overlay-show overlay-op-8 pt-5" style="background-image: url(front/assets/img/demos/business-consulting/slides/slider3.jpg); background-size: cover; background-position: center;">
-								<div class="container position-relative z-index-3 h-100">
-									<div class="row justify-content-center align-items-center h-100">
-										<div class="col-lg-6">
-											<div class="d-flex flex-column align-items-center">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-                            <!-- Carousel Slide 4 -->
-							<div class="owl-item position-relative overlay overlay-show overlay-op-8 pt-5" style="background-image: url(front/assets/img/demos/business-consulting/slides/image3.jpg); background-size: cover; background-position: center;">
-								<div class="container position-relative z-index-3 h-100">
-									<div class="row justify-content-center align-items-center h-100">
-										<div class="col-lg-6">
-											<div class="d-flex flex-column align-items-center">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							@endforeach
 						</div>
 					</div>
 					<div class="owl-nav">
@@ -249,7 +217,6 @@
 					</div>
 					<div class="owl-dots mb-5">
 						<button role="button" class="owl-dot active"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
 						<button role="button" class="owl-dot"><span></span></button>
 						<button role="button" class="owl-dot"><span></span></button>
 					</div>
@@ -261,8 +228,8 @@
 							<div class="col-lg-6">
 								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="100"><span class="line-pre-title bg-color-primary"></span>What we do</p>
 								<h2 class="text-color-dark font-weight-bold text-capitalize mb-4 custom-letter-spacing-2 custom-text-1 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">Search Best Professionals</h2>
-								<p class="font-weight-semibold mb-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a elit sit amet leo accumsan volutpat. Suspendisse hendrerit vehicula leo, vel efficitur felis ultrices non. Integer aliquet ullamcorper dolor, quis sollicitudin.</p>
-                                <a href="#" class="btn btn-modern btn-primary mb-2">Read more</a>
+								<p class="font-weight-semibold mb-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300">Get inspired, join the community, and reach the right audience! This is your best place to find and collaborate with designers from all over the world.</p>
+                                <a href="{{ route('professionals') }}" class="btn btn-modern btn-primary mb-2">Read more</a>
                                 <br>
                                 <br>
                                 <div class="d-flex align-items-center justify-content-start appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
@@ -273,13 +240,9 @@
 									</div>
 								</div>
                                 <div>
-									<span style="margin-right: 10px;"><a href="#" class="btn btn-3d btn-light rounded-0 mb-2">Arcitects</a></span>
-									<span style="margin-right: 10px;"><a href="#" class="btn btn-3d btn-light rounded-0 mb-2">Professionals</a></span>
-									<span style="margin-right: 10px;"><a href="#" class="btn btn-3d btn-light rounded-0 mb-2">Lorem ipsum</a></span>
-                                    <br>
-                                    <br>
-									<span style="margin-right: 10px;><a href="#" class="btn btn-3d btn-light rounded-0 mb-2">Lorem ipsum</a></span>
-									<span style="margin-right: 10px;><a href="#" class="btn btn-3d btn-light rounded-0 mb-2">Lorem ipsum</a></span>
+                                    @foreach ($professional_cat as $eachProfessional_cat)
+                                    <span style="margin-right: 10px;"><a href="{{ route('single_professional', encrypt($eachProfessional_cat->id)) }}" class="btn btn-3d btn-light rounded-0 mb-2">{{ $eachProfessional_cat->category_title }}</a></span>
+                                    @endforeach
                                 </div>
 							</div>
                             <div class="col-xl-6 mb-5 pb-5 mb-xl-0 pb-xl-0">
@@ -290,11 +253,6 @@
 												<blockquote class="px-0 pb-5">
                                                     <img src="{{ asset('front/assets/img/demos/business-consulting/slides/agency.jpg') }}" class="img-fluid border-radius-0" alt="" style="height: 500px;">
 												</blockquote>
-												<div class="testimonial-arrow-down"></div>
-												<div class="testimonial-author d-flex flex-row justify-content-start align-items-center">
-													<img src="{{ asset('front/assets/img/demos/business-consulting/slides/avatar.jpg') }}" class="img-fluid rounded-circle m-0 me-3" alt="">
-													<p><strong class="font-weight-extra-bold text-start text-color-dark mb-1">Name Here</strong><span class="text-uppercase text-start">XYZ</span></p>
-												</div>
 											</div>
 										</div>
                                         <div class="custom-testimonial-container bg-color-light">
@@ -302,11 +260,6 @@
 												<blockquote class="px-0 pb-5">
                                                     <img src="{{ asset('front/assets/img/demos/business-consulting/slides/agency.jpg') }}" class="img-fluid border-radius-0" alt="" style="height: 500px;">
 												</blockquote>
-												<div class="testimonial-arrow-down"></div>
-												<div class="testimonial-author d-flex flex-row justify-content-start align-items-center">
-													<img src="img/avatars/avatar-3.jpg" class="img-fluid rounded-circle m-0 me-3" alt="">
-													<p><strong class="font-weight-extra-bold text-start text-color-dark mb-1">John Smith</strong><span class="text-uppercase text-start">Manager</span></p>
-												</div>
 											</div>
 										</div>
                                         <div class="custom-testimonial-container bg-color-light">
@@ -314,11 +267,6 @@
 												<blockquote class="px-0 pb-5">
                                                     <img src="{{ asset('front/assets/img/demos/business-consulting/slides/agency.jpg') }}" class="img-fluid border-radius-0" alt="" style="height: 500px;">
 												</blockquote>
-												<div class="testimonial-arrow-down"></div>
-												<div class="testimonial-author d-flex flex-row justify-content-start align-items-center">
-													<img src="img/avatars/avatar-3.jpg" class="img-fluid rounded-circle m-0 me-3" alt="">
-													<p><strong class="font-weight-extra-bold text-start text-color-dark mb-1">John Smith</strong><span class="text-uppercase text-start">Manager</span></p>
-												</div>
 											</div>
 										</div>
 									</div>
@@ -344,46 +292,18 @@
 							<div class="col appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
 
 								<div class="owl-carousel owl-theme stage-margin rounded-nav nav-dark nav-icon-1 nav-size-md mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 3}, '979': {'items': 3}, '1199': {'items': 3}}, 'margin': 0, 'loop': true, 'nav': true, 'dots': false, 'stagePadding': 40}">
-									<div class="mx-4">
-										<div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-									</div>
-									<div class="mx-4">
-										<div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house3.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-									</div>
-									<div class="mx-4">
-										<div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house4.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-									</div>
+									@foreach ($projects as $project)
                                     <div class="mx-4">
 										<div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house1.jpg" alt="Card Image">
+                                            <img class="card-img-top" src="{{ asset($project->thumbnail_image) }}" alt="Card Image" style="height:196px;">
                                             <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                                <h4 class="card-title mb-1 text-4 font-weight-bold">{{ $project->company_name }}</h4>
+                                                <p class="card-text mb-2 pb-1">{{ substr($project->description, 0, 100) }}</p>
+                                                <a href="{{ route('projectDetails',encrypt($project->id)) }}" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
                                             </div>
                                         </div>
 									</div>
+                                    @endforeach
 								</div>
 
 							</div>
@@ -436,7 +356,7 @@
 									<div>
 										<div class="testimonial testimonial-style-2 text-color-light testimonial-with-quotes testimonial-quotes-primary mb-0">
 
-												<p class="text-7  line-height-5 mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+												<p class="text-7  line-height-5 mb-0"> A step closer to good design: Ideal Standard’s Design and Specification Centre’s refreshing approach</p>
 										</div>
 									</div>
 
@@ -468,7 +388,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#tabsNavigationSimpleIcons2" data-bs-toggle="tab">
+										<a class="nav-link" href="{{ route('projects') }}">
 											<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
 												<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
 													<span class="box-content p-0 m-0">
@@ -476,11 +396,11 @@
 													</span>
 												</span>
 											</span>
-											<p class="mb-0 pb-0">Interviews</p>
+											<p class="mb-0 pb-0">Projects</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#tabsNavigationSimpleIcons3" data-bs-toggle="tab">
+										<a class="nav-link" href="{{ route('front.events') }}">
 											<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
 												<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
 													<span class="box-content p-0 m-0">
@@ -492,7 +412,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#tabsNavigationSimpleIcons4" data-bs-toggle="tab">
+										<a class="nav-link" href="{{ route('front.news') }}">
 											<span class="featured-boxes featured-boxes-style-6 p-0 m-0">
 												<span class="featured-box featured-box-primary featured-box-effect-6 p-0 m-0">
 													<span class="box-content p-0 m-0">
@@ -500,7 +420,7 @@
 													</span>
 												</span>
 											</span>
-											<p class="mb-0 pb-0">Review</p>
+											<p class="mb-0 pb-0">News</p>
 										</a>
 									</li>
 								</ul>
@@ -512,46 +432,18 @@
                             <div class="col appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
 
                                 <div class="owl-carousel owl-theme stage-margin rounded-nav nav-dark nav-icon-1 nav-size-md mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 3}, '979': {'items': 3}, '1199': {'items': 3}}, 'margin': 0, 'loop': true, 'nav': true, 'dots': false, 'stagePadding': 40}">
+                                    @foreach ($articles as $article)
                                     <div class="mx-4">
                                         <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house1.jpg" alt="Card Image">
+                                            <img class="card-img-top" src="{{ asset($article->image) }}" alt="Card Image" style=" height:196px;">
                                             <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
+                                                <h4 class="card-title mb-1 text-4 font-weight-bold">{{ $article->name }}</h4>
+                                                <p class="card-text mb-2 pb-1">{{ substr($article->article_description,0,100) }}</p>
                                                 <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mx-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house3.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mx-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mx-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house4.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Company name</h4>
-                                                <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                                <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -587,9 +479,10 @@
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+							<p class="m-0">Archibazaar</p>
+                            <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+								<p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
 						</div>
 						<div class="col-md-6 col-lg-2">
@@ -607,8 +500,8 @@
 						<div class="row py-4">
 							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
+                                    {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+									<img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
 								</a>
 							</div>
 							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
@@ -627,7 +520,6 @@
 					</div>
 				</div>
 			</footer>
-
 		</div>
 
 		<!-- Vendor -->

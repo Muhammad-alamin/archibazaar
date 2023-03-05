@@ -16,7 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('professional_id');
-            $table->foreign('professional_id')->references('id')->on('professionals');
+            $table->foreign('professional_id')->references('id')->on('professionals')->nullable();
             $table->string('professional_name')->nullable();
             $table->string('company_name')->nullable();
             $table->string('project_type')->nullable();

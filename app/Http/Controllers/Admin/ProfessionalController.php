@@ -42,10 +42,12 @@ class ProfessionalController extends Controller
          $professional = new Professional();
 
          $professional->professional_cat_id = $request->product_category;
+         $professional->product_category_title = $request->product_category_title;
          $professional->name = $request->name;
          $professional->address = $request->address;
          $professional->mobile = $request->mobile;
          $professional->email = $request->email;
+         $professional->visiting_time = $request->visiting_time;
          $professional->website = $request->website;
          $professional->instagram = $request->instagram;
          $professional->facebook = $request->facebook;
@@ -65,7 +67,17 @@ class ProfessionalController extends Controller
 
          }
 
+         if ($request->hasFile('pro_pic')){
 
+            $path = 'images/professional/pro_pic/';
+            $img = $request->file('pro_pic');
+            $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
+            $img->move($path,$file_name);
+            $professional->pro_pic = $path .'/'. $file_name;
+
+        }
+
+        dd($professional);
          $professional->save();
          session()->flash('success', 'Professional Created Successfully');
          return redirect()->route('admin.professional.list');
@@ -95,10 +107,12 @@ class ProfessionalController extends Controller
         $professional = Professional::find($d_id);
 
         $professional->professional_cat_id = $request->product_category;
+        $professional->product_category_title = $request->product_category_title;
          $professional->name = $request->name;
          $professional->address = $request->address;
          $professional->mobile = $request->mobile;
          $professional->email = $request->email;
+         $professional->visiting_time = $request->visiting_time;
          $professional->website = $request->website;
          $professional->instagram = $request->instagram;
          $professional->facebook = $request->facebook;
@@ -120,6 +134,21 @@ class ProfessionalController extends Controller
             }
 
             $professional->image = $path .'/'. $file_name;
+        }
+
+        if ($request->hasFile('pro_pic')){
+
+            $path = 'images/professional/pro_pic/';
+            $img = $request->file('pro_pic');
+            $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
+            $img->move($path,$file_name);
+
+
+            if ($professional->pro_pic != null && file_exists($professional->pro_pic)){
+                unlink($professional->pro_pic);
+            }
+
+            $professional->pro_pic = $path .'/'. $file_name;
 
 
 

@@ -58,6 +58,10 @@ class ProductController extends Controller
         $data['product_category_id'] = $request->product_category;
         $data['supplier_id'] = auth()->user()->id;
         $data['product_name'] = $request->product_name;
+        $data['size'] = $request->product_size;
+        $data['contact_supplier'] = $request->contact_supplier;
+        $data['regular_price'] = $request->regular_price;
+        $data['discount_price'] = $request->discount_price;
         $data['supplier_name'] = $request->supplier_name;
         $data['description'] = $request->description;
         $data['location'] = $request->country;
@@ -174,6 +178,10 @@ class ProductController extends Controller
         $product->supplier_id = auth()->user()->id;
         $product->product_name = $request->product_name;
         $product->supplier_name = $request->supplier_name;
+        $product->contact_supplier = $request->contact_supplier;
+        $product->regular_price = $request->regular_price;
+        $product->discount_price = $request->discount_price;
+        $product->size = $request->product_size;
         $product->description = $request->description;
         $product->location = $request->country;
         $product->specification = $request->specification;

@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -61,8 +61,8 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index.html">
-                                            <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-											{{-- <img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="img/logo-default-slim.png"> --}}
+                                            {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+											<img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 										</a>
 									</div>
 								</div>
@@ -73,57 +73,75 @@
 										<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
-                                                    <li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('home') }}">
+                                                    <li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('home') }}">
 															Home
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('professionalDetails') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('professionals') }}">
 															Proffesionals
 														</a>
 													</li>
-													<li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle" href="elements.html">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('projects') }}">
 															Projects
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="#">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('front.products') }}">
 															Products
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('articles') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('articles') }}">
 															Articles
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="#">
-															<i class="icon-user text-color-dark font-weight-bold"></i>
-														</a>
+                                                    @if (Route::has('login') && Auth::check())
+                                                    <li class="nav-item">
+														@if(auth()->user()->role == 'supplier')
+                                                        <a href="{{ route('supplier.profile') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @elseif (auth()->user()->role == 'admin')
+                                                        <a href="{{ route('admin.dashboard') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @else
+                                                        <a href="" class="nav-link border-bottom-0">
+                                                            <{{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @endif
 													</li>
+                                                    @elseif (Route::has('login') && !Auth::check())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link border-bottom-0" href="{{ route('login') }}">
+                                                         <em class="icon ni ni-signout"></em><span>Sign In</span>
+                                                     </a>
+                                                    </li>
+                                                    @endif
 												</ul>
 											</nav>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
-									</div>
-									<div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-										<div class="header-nav-feature header-nav-features-search d-inline-flex">
-											<a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-											<div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
-												<form role="search" action="page-search-results.html" method="get">
-													<div class="simple-search input-group">
-														<input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
-														<button class="btn" type="submit">
-															<i class="fas fa-search header-nav-top-icon"></i>
-														</button>
-													</div>
-												</form>
-											</div>
-										</div>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="header-nav-features header-nav-features-no-border header-nav-features-md-show-border d-none d-md-inline-flex">
+                                            <div class="header-nav-feature header-nav-features-search d-inline-flex">
+                                                <a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+                                                <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
+                                                    <form role="search" action="{{ route('professional.search') }}" method="get">
+                                                        <div class="simple-search input-group">
+                                                            <input class="form-control text-1" iid="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
+                                                            <button class="btn" type="submit">
+                                                                <i class="fas fa-search header-nav-top-icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -131,7 +149,7 @@
 					</div>
 				</div>
 			</header>
-            <section class="section section-background section-height-4 " data-plugin-parallax data-plugin-options="{'speed': 1.5}" data-image-src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" style="height: 350px;">
+            <section class="section section-background section-height-4 " data-plugin-parallax data-plugin-options="{'speed': 1.5}" data-image-src="{{ asset($projects->thumbnail_image) }}" style="height: 350px;">
             </section>
             <section class="section section-no-border bg-color-light m-0">
                 <div class="container">
@@ -146,7 +164,7 @@
 								<div class="tab-content">
 									<div id="popular" class="tab-pane active" style="margin-top: 20px;">
 										<h4 class="text-weight-bold">Project Details</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat</p>
+										<p>{{$projects->description}}</p>
                                         <br>
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -157,23 +175,23 @@
                                                                 Firm Type:
                                                             </th>
                                                             <td class="border-top-0" style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->firm}}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                Type:
+                                                                Project Type:
                                                             </th>
                                                             <td style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->project_type}}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                Style:
+                                                                Design Style:
                                                             </th>
                                                             <td style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->design_style}}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -184,26 +202,26 @@
                                                     <tbody>
                                                         <tr>
                                                             <th class="border-top-0">
-                                                                Firm Type:
+                                                                Architect:
                                                             </th>
                                                             <td class="border-top-0" style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->architect}}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                Type:
+                                                                Area size:
                                                             </th>
                                                             <td style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->area_size}}
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                Style:
+                                                                Location:
                                                             </th>
                                                             <td style="padding: 10px;">
-                                                                Lorem ipsum dolor sit amet, consectetur
+                                                                {{$projects->country_name}}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -228,148 +246,95 @@
 
                     <div class="sort-destination-loader mt-4 pt-2 sort-destination-loader-loaded">
                         <div class="row portfolio-list sort-destination" data-sort-id="portfolio" data-filter="*" style="position: relative; height: 296px;">
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item websites" style="position: absolute; left: 0px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image1.jpg" class="img-fluid border-radius-0" alt="">
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item medias" style="position: absolute; left: 285px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image2.jpg" class="img-fluid border-radius-0" alt="">
+                        @php($images = json_decode($projects->multiple_image))
+                                    @if($images)
+                                    @foreach($images as $eachimage)
+                                        <div class="col-12 col-sm-6 col-lg-4 isotope-item websites" style="position: absolute; left: 0px; top: 0px;">
+                                            <div class="portfolio-item">
+                                                <a href="portfolio-single-wide-slider.html">
+                                                    <span class="thumb-info thumb-info-lighten border-radius-0">
+                                                        <span class="thumb-info-wrapper border-radius-0">
+                                                            <img src="{{ asset('images/projects/multiple_image/'.$eachimage) }}" class="img-fluid border-radius-0" alt="" style="width: 364px; height:245px;">
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    @endif
 
-                                            </span>
-                                        </span>
-                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item logos" style="position: absolute; left: 570px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image3.jpg" class="img-fluid border-radius-0" alt="">
-
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row portfolio-list sort-destination" data-sort-id="portfolio" data-filter="*" style="position: relative; height: 296px;">
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item websites" style="position: absolute; left: 0px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image4.jpg" class="img-fluid border-radius-0" alt="">
-
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item medias" style="position: absolute; left: 285px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image5.jpg" class="img-fluid border-radius-0" alt="">
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item logos" style="position: absolute; left: 570px; top: 0px;">
-                                <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
-                                        <span class="thumb-info thumb-info-lighten border-radius-0">
-                                            <span class="thumb-info-wrapper border-radius-0">
-                                                <img src="front/assets/img/demos/business-consulting/slides/image6.jpg" class="img-fluid border-radius-0" alt="">
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="bounce-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
+                    </div>
                 </div>
             </div>
         </div>
-			<footer id="footer" class="footer-top-border bg-color-light-scale-1">
-				<div class="container py-4">
-					<div class="row py-5">
-						<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-							<h5 class="text-3 text-color-dark mb-3">NEWSLETTER</h5>
-							<p class="pe-1">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
-							<div class="alert alert-success d-none" id="newsletterSuccess">
-								<strong>Success!</strong> You've been added to our email list.
-							</div>
-							<div class="alert alert-danger d-none" id="newsletterError"></div>
-							<form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="me-4 mb-3 mb-md-0">
-								<div class="input-group input-group-rounded">
-									<input class="form-control form-control-sm bg-light" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="email">
-									<button class="btn btn-light text-color-dark" type="submit"><strong>GO!</strong></button>
-								</div>
-							</form>
-						</div>
-						<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<h5 class="text-3 text-color-dark mb-3">LATEST TWEETS</h5>
-							<div id="tweet" class="twitter twitter-dark" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
-								<p>Please wait...</p>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
+        <footer id="footer" class="footer-top-border bg-color-light-scale-1">
+            <div class="container py-4">
+                <div class="row py-5">
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <h5 class="text-3 text-color-dark mb-3">NEWSLETTER</h5>
+                        <p class="pe-1">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
+                        <div class="alert alert-success d-none" id="newsletterSuccess">
+                            <strong>Success!</strong> You've been added to our email list.
+                        </div>
+                        <div class="alert alert-danger d-none" id="newsletterError"></div>
+                        <form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="me-4 mb-3 mb-md-0">
+                            <div class="input-group input-group-rounded">
+                                <input class="form-control form-control-sm bg-light" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="email">
+                                <button class="btn btn-light text-color-dark" type="submit"><strong>GO!</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <h5 class="text-3 text-color-dark mb-3">LATEST TWEETS</h5>
+                        <div id="tweet" class="twitter twitter-dark" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
+                            <p>Please wait...</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                        <h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+                        <p class="m-0">Archibazaar</p>
+                        <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+                            <p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+                            <p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
-						</div>
-						<div class="col-md-6 col-lg-2">
-							<h5 class="text-3 text-color-dark mb-3">FOLLOW US</h5>
-							<ul class="header-social-icons social-icons">
-								<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
-								<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
-								<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="footer-copyright footer-top-border bg-color-light-scale-1">
-					<div class="container py-2">
-						<div class="row py-4">
-							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
-								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
-								</a>
-							</div>
-							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-								<p>© Copyright 2023. All Rights Reserved.</p>
-							</div>
-							<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
-								<nav id="sub-menu">
-									<ul>
-										<li><i class="fas fa-angle-right"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-primary"> FAQ's</a></li>
-										<li><i class="fas fa-angle-right"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-primary"> Sitemap</a></li>
-										<li><i class="fas fa-angle-right"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-primary"> Contact Us</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <h5 class="text-3 text-color-dark mb-3">FOLLOW US</h5>
+                        <ul class="header-social-icons social-icons">
+                            <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
+                            <li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
+                            <li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright footer-top-border bg-color-light-scale-1">
+                <div class="container py-2">
+                    <div class="row py-4">
+                        <div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
+                            <a href="index.html" class="logo pe-0 pe-lg-3">
+                                {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+                                <img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
+                            </a>
+                        </div>
+                        <div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
+                            <p>© Copyright 2023. All Rights Reserved.</p>
+                        </div>
+                        <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
+                            <nav id="sub-menu">
+                                <ul>
+                                    <li><i class="fas fa-angle-right"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-primary"> FAQ's</a></li>
+                                    <li><i class="fas fa-angle-right"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-primary"> Sitemap</a></li>
+                                    <li><i class="fas fa-angle-right"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-primary"> Contact Us</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 		</div>
 
 		<!-- Vendor -->

@@ -22,6 +22,10 @@ class CreateProductsTable extends Migration
             $table->string('supplier_id')->nullable();
             $table->longText('description')->nullable();
             $table->string('specification')->nullable();
+            $table->string('size')->nullable();
+            $table->longText('contact_supplier')->nullable();
+            $table->string('regular_price')->nullable();
+            $table->string('discount_price')->nullable();
             $table->text('image')->nullable();
             $table->text('catalogues')->nullable();
             $table->text('drawing_file')->nullable();

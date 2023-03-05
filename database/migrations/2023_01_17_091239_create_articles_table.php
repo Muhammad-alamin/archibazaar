@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('professional_id');
             $table->foreign('professional_id')->references('id')->on('professionals');
             $table->string('article_title')->nullable();
-            $table->string('article_description')->nullable();
+            $table->longText('article_description')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
         });

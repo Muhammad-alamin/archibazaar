@@ -65,6 +65,34 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Product size</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" name="product_size" id="product_size" value="" placeholder="Enter product size">
+                @error('product_size')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">contact supplier (Address/Number)</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" name="contact_supplier" id="contact_supplier" value="" placeholder=" contact supplier">
+                @error('contact_supplier')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Regular price</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" name="regular_price" id="regular_price" value="" placeholder="Enter product Regular price">
+                @error('regular_price')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Discount_price</label>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" name="discount_price" id="discount_price" value="" placeholder="Enter product Discount price">
+                @error('discount_price')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2">Image</label>
             <div class="col-lg-9">
                     <input class="d-block" type="file" name="image" id="image">

@@ -15,12 +15,14 @@
                         <option selected="" disabled="" >Select Category</option>
                         @foreach($categories as $key=>$category)
                             <option  @if(old('product_category',isset($professional)?$professional->professional_cat_id:null)  == $category->id) selected @endif value="{{$category->id}}">{{$category->category_title}}</option>
-                        @endforeach
+                            <option hidden @if(old('product_category_title',isset($professional)?$professional->product_category_title:null)  == $category->ategory_title) selected @endif value="{{$category->category_title}}"></option>
+                            @endforeach
                     </select>
                 </div>
                 @error('product_category')<i class="text-danger">{{$message}}</i>@enderror
             </div>
         </div>
+
         <div class="form-group row">
             <label class="col-sm-4 control-label text-sm-right pt-2">Name  :</label>
             <div class="col-sm-8">
@@ -65,6 +67,13 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-sm-4 control-label text-sm-right pt-2">Visiting time (MONDAY-FRIDAY 8.00-20.00) :</label>
+            <div class="col-sm-8">
+                <input type="text" name="visiting_time" value="{{old('visiting_time', isset($professional)?$professional->visiting_time:null)}}" placeholder="Enter visiting time" class="form-control">
+                @error('visiting_time')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-sm-4 control-label text-sm-right pt-2">Website link :</label>
             <div class="col-sm-8">
                 <input type="text" name="website" value="{{old('website', isset($professional)?$professional->website:null)}}" placeholder="Enter Professional website" class="form-control">
@@ -94,18 +103,29 @@
         </div>
         <div class="form-group row">
             <label class="col-sm-4 control-label text-sm-right pt-2">Company name :</label>
-            <div class="col-sm-8">company_name
+            <div class="col-sm-8">
                 <input type="text" name="company_name" value="{{old('company_name', isset($professional)?$professional->company_name:null)}}" placeholder="Enter Professional company name" class="form-control">
                 @error('company_name')<i class="text-danger">{{$message}}</i>@enderror
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 control-label text-sm-right pt-2">Image :</label>
+            <label class="col-sm-4 control-label text-sm-right pt-2">Company banner :</label>
             <div class="col-sm-8">
                 <input type="file" name="image" value="{{old('image', isset($professional)?$professional->image:null)}}" class="form-control">
                 <br>
                 @if (isset($professional))
                     <img src="{{asset($professional->image)}}" width="40px;" height="50px">
+                @endif
+                @error('image')<i class="text-danger">{{$message}}</i>@enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 control-label text-sm-right pt-2">Profile pic / Company logo:</label>
+            <div class="col-sm-8">
+                <input type="file" name="pro_pic" value="{{old('image', isset($professional)?$professional->pro_pic:null)}}" class="form-control">
+                <br>
+                @if (isset($professional))
+                    <img src="{{asset($professional->pro_pic)}}" width="40px;" height="50px">
                 @endif
                 @error('image')<i class="text-danger">{{$message}}</i>@enderror
             </div>

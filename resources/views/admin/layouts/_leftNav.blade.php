@@ -18,13 +18,11 @@
                     <ul class="nav nav-main">
                         <li>
                             <a class="nav-link" href="{{ route('admin.dashboard') }}">
-                                <i class="fas fa-home" aria-hidden="true"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Professional Category</span>
                             </a>
                             <ul class="nav nav-children">
@@ -42,7 +40,6 @@
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Slider</span>
                             </a>
                             <ul class="nav nav-children">
@@ -61,7 +58,6 @@
 
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Product Category</span>
                             </a>
                             <ul class="nav nav-children">
@@ -79,7 +75,6 @@
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Professional</span>
                             </a>
                             <ul class="nav nav-children">
@@ -97,7 +92,6 @@
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Projects</span>
                             </a>
                             <ul class="nav nav-children">
@@ -115,7 +109,6 @@
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Products</span>
                             </a>
                             <ul class="nav nav-children">
@@ -133,7 +126,6 @@
                         </li>
                         <li class="nav-parent">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Articles</span>
                             </a>
                             <ul class="nav nav-children">

@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -63,8 +63,8 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index.html">
-                                            <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-											{{-- <img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="img/logo-default-slim.png"> --}}
+                                            {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+											<img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 										</a>
 									</div>
 								</div>
@@ -75,49 +75,67 @@
 										<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
-                                                    <li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('home') }}">
+                                                    <li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('home') }}">
 															Home
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle " href="{{ route('professionalDetails') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('professionals') }}">
 															Proffesionals
 														</a>
 													</li>
-													<li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('projects') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('projects') }}">
 															Projects
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('products') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('front.products') }}">
 															Products
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('articles') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('articles') }}">
 															Articles
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle active" href="#">
-															Sign in
-														</a>
+                                                    @if (Route::has('login') && Auth::check())
+                                                    <li class="nav-item">
+														@if(auth()->user()->role == 'supplier')
+                                                        <a href="{{ route('supplier.profile') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @elseif (auth()->user()->role == 'admin')
+                                                        <a href="{{ route('admin.dashboard') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @else
+                                                        <a href="" class="nav-link border-bottom-0">
+                                                            <{{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @endif
 													</li>
+                                                    @elseif (Route::has('login') && !Auth::check())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link border-bottom-0" href="{{ route('login') }}">
+                                                         <em class="icon ni ni-signout"></em><span>Sign In</span>
+                                                     </a>
+                                                    </li>
+                                                    @endif
 												</ul>
 											</nav>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
                                         <div class="header-nav-features header-nav-features-no-border header-nav-features-md-show-border d-none d-md-inline-flex">
                                             <div class="header-nav-feature header-nav-features-search d-inline-flex">
                                                 <a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
                                                 <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
-                                                    <form role="search" action="page-search-results.html" method="get">
+                                                    <form role="search" action="{{ route('professional.search') }}" method="get">
                                                         <div class="simple-search input-group">
-                                                            <input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
+                                                            <input class="form-control text-1" iid="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
                                                             <button class="btn" type="submit">
                                                                 <i class="fas fa-search header-nav-top-icon"></i>
                                                             </button>
@@ -176,10 +194,18 @@
 
 							<aside class="sidebar mt-2" id="sidebar">
 								<ul class="nav nav-list flex-column mb-5">
-									<li class="nav-item"><a class="nav-link text-3 text-dark @if(request()->routeIs('supplier.profile'))  active @endif" href="{{ route('supplier.profile') }}">My Profile</a></li>
+									<li class="nav-item"><a class="nav-link text-3 text-dark @if(request()->routeIs('supplier.profile'))  active @endif " href="{{ route('supplier.profile') }}">My Profile</a></li>
 									<li class="nav-item"><a class="nav-link text-3 @if(request()->routeIs('product.create'))  active @endif" href="{{ route('product.create') }}">Add Product</a></li>
-									<li class="nav-item"><a class="nav-link text-3" href="#">Product list</a></li>
-									<li class="nav-item"><a class="nav-link text-3" href="#">logout</a></li>
+									<li class="nav-item"><a class="nav-link text-3 @if(request()->routeIs('product.index'))  active @endif" href="{{ route('product.index') }}">Product list</a></li>
+									<li class="nav-item"><a class="nav-link border-bottom-0" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                         <em class="icon ni ni-signout"></em><span>Sign out</span>
+                                     </a>
+
+                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                         @csrf
+                                     </form></li>
 								</ul>
 							</aside>
 
@@ -257,9 +283,10 @@
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+							<p class="m-0">Archibazaar</p>
+                            <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+								<p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
 						</div>
 						<div class="col-md-6 col-lg-2">
@@ -277,8 +304,8 @@
 						<div class="row py-4">
 							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
+                                    {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+									<img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
 								</a>
 							</div>
 							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">

@@ -17,15 +17,31 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/','Front\HomeController@view')->name('home');
-Route::get('/professionals','Front\ProfessionalController@category')->name('professionals');
-Route::get('/single-professionals','Front\ProfessionalController@eachCategory')->name('single_professional');
-Route::get('/professional-details','Front\ProfessionalController@view')->name('professionalDetails');
-Route::get('/articles','Front\ArticleController@view')->name('articles');
-Route::get('/products','Front\ProductController@view')->name('products');
-Route::get('/projects','Front\ProjectController@view')->name('projects');
-Route::get('/product-details','Front\ProductDetailsController@view')->name('productDetails');
-Route::get('/project-details','Front\ProjectDetailsController@view')->name('projectDetails');
+
+//front
+
+Route::middleware('HtmlMinifier')->group(function () {
+    Route::get('/', 'Front\HomeController@view')->name('home');
+    Route::get('/professionals', 'Front\ProfessionalController@category')->name('professionals');
+    Route::get('/single-professionals/{id}', 'Front\ProfessionalController@eachCategory')->name('single_professional');
+    Route::get('/professional-details/{id}', 'Front\ProfessionalController@view')->name('professionalDetails');
+    Route::get('/articles', 'Front\ArticleController@view')->name('articles');
+    Route::get('/front/products', 'Front\ProductController@view')->name('front.products');
+    Route::get('/projects', 'Front\ProjectController@view')->name('projects');
+    Route::get('/product-details/{id}', 'Front\ProductDetailsController@view')->name('productDetails');
+    Route::get('/project-details/{id}', 'Front\ProjectDetailsController@view')->name('projectDetails');
+    Route::get('/front/category/products/{id}', 'Front\ProductController@pCategory')->name('front.category.products');
+    Route::get('/front/location/products/{id}', 'Front\ProductController@pLocation')->name('front.location.products');
+    Route::get('/download/catalouges/{id}', 'Front\ProductDetailsController@catalouges')->name('download.catalouges');
+    Route::get('/download/drawing/{id}', 'Front\ProductDetailsController@drawing')->name('download.drawing');
+    Route::get('/front/category/projects/{id}', 'Front\ProjectController@pCategory')->name('front.category.projects');
+    Route::get('/front/location/projects/{id}', 'Front\ProjectController@pLocation')->name('front.location.projects');
+    Route::get('/articles-details/{id}', 'Front\ArticleController@eachArticles')->name('front.articles_details');
+    Route::match (['get', 'post'], '/search', 'Front\HomeController@search')->name('professional.search');
+    Route::get('/search-professionals', 'Front\ProfessionalController@searchProfessionals')->name('front.search.professionals');
+
+});
+
 
 //register
 Route::get('/user-register','CustomRegisterController@index')->name('supplier_register');
@@ -40,6 +56,7 @@ Route::post('/supplier-profile-pic-update/{id}','Supplier\ProfileController@upda
 Route::resource('/supplier/product','Supplier\ProductController');
 Route::post('/supplier-product-update/{id}','Supplier\ProductController@updateProduct')->name('supplier.product.update');
 Route::get('/supplier-product-delete/{id}','Supplier\ProductController@delete')->name('supplier.product.delete');
+
 
 //admin
 Route::get('admin/dashboard','Admin\DashboardController@view')->name('admin.dashboard');
@@ -111,3 +128,26 @@ Route::post('/admin-profile-pic-update/{id}','Admin\ProfileController@updateAdmi
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
+//professional & others
+Route::get('/professional-profile','Professional\ProfileController@index')->name('professional.profile');
+// Route::get('/supplier-profile/{id}','Supplier\ProfileController@edit')->name('supplier.profile.edit');
+Route::post('/professional-profile-update/{id}','Professional\ProfileController@updateProfessional')->name('professional.profile.update');
+Route::post('/professional-profile-pic-update/{id}','Professional\ProfileController@updateProfessionalPic')->name('professional.profile.pic.update');
+
+Route::resource('/professional/project','Professional\ProjectController');
+Route::post('/professional-product-update/{id}','Professional\ProjectController@updateProject')->name('professional.project.update');
+Route::get('/professional-product-delete/{id}','Professional\ProjectController@delete')->name('professional.project.delete');
+
+Route::get('/products-status-approved/{id}','Admin\DashboardController@productEdit')->name('admin.products.dashboard.edit');
+Route::get('/projects-status-approved/{id}','Admin\DashboardController@projectEdit')->name('admin.projects.dashboard.edit');
+
+
+Route::post('/projects-status-update/{id}','Admin\DashboardController@projectUpdate')->name('admin.projects.status.update');
+Route::post('/products-status-update/{id}','Admin\DashboardController@productUpdate')->name('admin.products.status.update');
+
+Route::get('/news','Front\HomeController@news')->name('front.news');
+Route::get('/events','Front\HomeController@events')->name('front.events');
+
+

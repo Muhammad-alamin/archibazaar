@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -37,14 +37,6 @@
 
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="{{ asset('front/assets/css/custom.css') }}">
-
-            <!-- Plugins CSS File -->
-        <link rel="stylesheet" href="{{ asset('front/ecommerce/assets/css/bootstrap.min.css') }}">
-
-        <!-- Main CSS File -->
-        <link rel="stylesheet" href="{{ asset('front/ecommerce/assets/css/style.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('front/ecommerce/assets/vendor/fontawesome-free/css/all.min.css') }}">
-
 		<!-- Head Libs -->
 		<script src="{{ asset('front/assets/vendor/modernizr/modernizr.min.js') }}"></script>
 
@@ -60,8 +52,8 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index.html">
-                                            <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-											{{-- <img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="img/logo-default-slim.png"> --}}
+                                            {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+											<img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 										</a>
 									</div>
 								</div>
@@ -72,52 +64,75 @@
 										<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
-                                                    <li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('home') }}">
+                                                    <li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('home') }}">
 															Home
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('professionalDetails') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('professionals') }}">
 															Proffesionals
 														</a>
 													</li>
-													<li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('projects') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('projects') }}">
 															Projects
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('products') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('front.products') }}">
 															Products
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle active" href="{{ route('articles') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('articles') }}">
 															Articles
 														</a>
 													</li>
+                                                    @if (Route::has('login') && Auth::check())
+                                                    <li class="nav-item">
+														@if(auth()->user()->role == 'supplier')
+                                                        <a href="{{ route('supplier.profile') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @elseif (auth()->user()->role == 'admin')
+                                                        <a href="{{ route('admin.dashboard') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @else
+                                                        <a href="" class="nav-link border-bottom-0">
+                                                            <{{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @endif
+													</li>
+                                                    @elseif (Route::has('login') && !Auth::check())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link border-bottom-0" href="{{ route('login') }}">
+                                                         <em class="icon ni ni-signout"></em><span>Sign In</span>
+                                                     </a>
+                                                    </li>
+                                                    @endif
 												</ul>
 											</nav>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
-									</div>
-									<div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-										<div class="header-nav-feature header-nav-features-search d-inline-flex">
-											<a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-											<div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
-												<form role="search" action="page-search-results.html" method="get">
-													<div class="simple-search input-group">
-														<input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
-														<button class="btn" type="submit">
-															<i class="fas fa-search header-nav-top-icon"></i>
-														</button>
-													</div>
-												</form>
-											</div>
-										</div>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="header-nav-features header-nav-features-no-border header-nav-features-md-show-border d-none d-md-inline-flex">
+                                            <div class="header-nav-feature header-nav-features-search d-inline-flex">
+                                                <a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+                                                <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
+                                                    <form role="search" action="{{ route('professional.search') }}" method="get">
+                                                        <div class="simple-search input-group">
+                                                            <input class="form-control text-1" iid="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
+                                                            <button class="btn" type="submit">
+                                                                <i class="fas fa-search header-nav-top-icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -146,376 +161,52 @@
                         </ol>
                     </div>
                 </nav>
+                <div role="main" class="main shop pt-4">
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-9 main-content">
-                            <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
-                                <div class="toolbox-left">
-                                    <a href="#" class="sidebar-toggle">
-                                        <svg data-name="Layer 3" id="Layer_3" viewBox="0 0 32 32"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <line x1="15" x2="26" y1="9" y2="9" class="cls-1"></line>
-                                            <line x1="6" x2="9" y1="9" y2="9" class="cls-1"></line>
-                                            <line x1="23" x2="26" y1="16" y2="16" class="cls-1"></line>
-                                            <line x1="6" x2="17" y1="16" y2="16" class="cls-1"></line>
-                                            <line x1="17" x2="26" y1="23" y2="23" class="cls-1"></line>
-                                            <line x1="6" x2="11" y1="23" y2="23" class="cls-1"></line>
-                                            <path
-                                                d="M14.5,8.92A2.6,2.6,0,0,1,12,11.5,2.6,2.6,0,0,1,9.5,8.92a2.5,2.5,0,0,1,5,0Z"
-                                                class="cls-2"></path>
-                                            <path d="M22.5,15.92a2.5,2.5,0,1,1-5,0,2.5,2.5,0,0,1,5,0Z" class="cls-2"></path>
-                                            <path d="M21,16a1,1,0,1,1-2,0,1,1,0,0,1,2,0Z" class="cls-3"></path>
-                                            <path
-                                                d="M16.5,22.92A2.6,2.6,0,0,1,14,25.5a2.6,2.6,0,0,1-2.5-2.58,2.5,2.5,0,0,1,5,0Z"
-                                                class="cls-2"></path>
-                                        </svg>
-                                        <span>Filter</span>
-                                    </a>
+                    <div class="container">
+                        <div class="blog-posts">
 
-                                    <div class="toolbox-item toolbox-sort">
-                                        <label>Sort By:</label>
-
-                                        <div class="select-custom">
-                                            <select name="orderby" class="form-control">
-                                                <option value="menu_order" selected="selected">Default sorting</option>
-                                                <option value="popularity">Sort by popularity</option>
-                                                <option value="rating">Sort by average rating</option>
-                                            </select>
+                            <div class="row">
+                                @foreach ($articles as $article)
+                                <div class="col-md-4">
+                                    <article class="post post-medium border-0 pb-0 mb-5">
+                                        <div class="post-image">
+                                            <a href="blog-post.html">
+                                                <img src="{{ asset($article->image) }}" alt="Card Image" style="width: 259px; height:172px" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="">
+                                            </a>
                                         </div>
-                                        <!-- End .select-custom -->
 
+                                        <div class="post-content">
 
-                                    </div>
-                                    <!-- End .toolbox-item -->
-                                </div>
-                                <!-- End .toolbox-left -->
+                                            <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="blog-post.html">{{ $article->article_title }}</a></h2>
+                                            <p>{{ Str::substr($article->article_description, 0, 100) }}</p>
+                                            <div class="post-meta">
+                                                <span class="d-block mt-2"><a href="{{ route('front.articles_details',encrypt($article->id)) }}" class="btn btn-xs btn-light text-1 text-uppercase">Read More</a></span>
+                                            </div>
 
-                                <div class="toolbox-right">
-                                    <div class="toolbox-item toolbox-show">
-                                        <label>Show:</label>
-
-                                        <div class="select-custom">
-                                            <select name="count" class="form-control">
-                                                <option value="12">12</option>
-                                                <option value="24">24</option>
-                                                <option value="36">36</option>
-                                            </select>
                                         </div>
-                                        <!-- End .select-custom -->
-                                    </div>
-                                    <!-- End .toolbox-item -->
-
-                                    <div class="toolbox-item layout-modes">
-                                        <a href="category.html" class="layout-btn btn-grid active" title="Grid">
-                                            <i class="icon-mode-grid"></i>
-                                        </a>
-                                        <a href="category-list.html" class="layout-btn btn-list" title="List">
-                                            <i class="icon-mode-list"></i>
-                                        </a>
-                                    </div>
-                                    <!-- End .layout-modes -->
+                                    </article>
                                 </div>
-                                <!-- End .toolbox-right -->
-                            </nav>
-
-                            <div class="row products-group">
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-2 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-3 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-4 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-5 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-6 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-7 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-8 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-9 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-                                <!-- product-9 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-                                <!-- product-9 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
-                                <!-- product-9 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <div class="card">
-                                        <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/house2.jpg" alt="Card Image">
-                                        <div class="card-body">
-                                            <h4 class="card-title mb-1 text-4 font-weight-bold">Articles</h4>
-                                            <p class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, consectetur adipiscing onsectetur adipiscing elit elit onsectetur adipiscing lit onsectetur adipiscing elit.</p>
-                                            <a href="/" class="read-more text-color-primary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .col-sm-4 -->
+                                @endforeach
                             </div>
-                            <!-- End .row -->
 
-                            <nav class="toolbox toolbox-pagination">
-                                <div class="toolbox-item toolbox-show">
-                                    <label>Show:</label>
+                            <div class="row">
+                                <div class="col">
+                                    <ul class="pagination float-end">
 
-                                    <div class="select-custom">
-                                        <select name="count" class="form-control">
-                                            <option value="12">12</option>
-                                            <option value="24">24</option>
-                                            <option value="36">36</option>
-                                        </select>
-                                    </div>
-                                    <!-- End .select-custom -->
+                            {{ $articles->render() }}
+                                    </ul>
                                 </div>
-                                <!-- End .toolbox-item -->
-
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active">
-                                      <a class="page-link" href="#" style="color: white">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                      <a class="page-link" href="#">Next</a>
-                                    </li>
-                                  </ul>
-                            </nav>
+                            </div>
                         </div>
-                        <!-- End .col-lg-9 -->
-
-                        <div class="sidebar-overlay"></div>
-                        <aside class="sidebar-shop col-lg-3 order-lg-first mobile-sidebar">
-                            <div class="sidebar-wrapper">
-                                <div class="widget1" style="padding-top: 15px; padding-bottom:15px;">
-                                    <h3 class="widget1-title">
-                                        <a  href="#widget-body-0" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-0" style="color: white">All Categories</a>
-                                    </h3>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-2">Articles category 1</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-2">
-                                        <div class="collapse" id="widget-body-2">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-3">Articles category 2</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-3">
-                                        <div class="collapse" id="widget-body-3">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-4">Articles category 3</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-4">
-                                        <div class="collapse" id="widget-body-4">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-5">Articles category 4</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-5">
-                                        <div class="collapse" id="widget-body-5">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                            </div>
-                            <!-- End .sidebar-wrapper -->
-                        </aside>
-                        <!-- End .col-lg-3 -->
                     </div>
-                    <!-- End .row -->
+
                 </div>
                 <!-- End .container -->
 
+
                 <div class="mb-4"></div>
+
                 <!-- margin -->
             </main>
             <!-- End .main -->
@@ -547,9 +238,10 @@
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+							<p class="m-0">Archibazaar</p>
+                            <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+								<p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
 						</div>
 						<div class="col-md-6 col-lg-2">
@@ -567,12 +259,12 @@
 						<div class="row py-4">
 							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
+                                    {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+									<img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
 								</a>
 							</div>
 							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-								<p>© Copyright 2021. All Rights Reserved.</p>
+								<p>© Copyright 2023. All Rights Reserved.</p>
 							</div>
 							<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
 								<nav id="sub-menu">

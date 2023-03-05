@@ -4,7 +4,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Default Layout | Porto Admin - Responsive HTML5 Template</title>
+    <title>Archibazaar</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -47,5 +47,6 @@
     <!-- Head Libs -->
     <script src="{{ asset('admin/vendor/modernizr/modernizr.js') }}"></script>
     <script src="{{ asset('admin/master/style-switcher/style.switcher.localstorage.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>

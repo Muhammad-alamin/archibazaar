@@ -13,8 +13,8 @@
 		<meta name="author" content="okler.net">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('front/assets/img/demos/business-consulting/slides/favicon.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -60,64 +60,91 @@
 								<div class="header-row">
 									<div class="header-logo">
 										<a href="index.html">
-                                            <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-											{{-- <img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="img/logo-default-slim.png"> --}}
+                                            {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+											<img alt="" width="100" height="48" data-sticky-width="82" data-sticky-height="40" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}">
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="header-column justify-content-end">
+							<div class="header-column justify-content-end ">
 								<div class="header-row">
 									<div class="header-nav header-nav-links order-2 order-lg-1">
 										<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
-                                                    <li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('home') }}">
+                                                    <li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('home') }}">
 															Home
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('professionalDetails') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('professionals') }}">
 															Proffesionals
 														</a>
 													</li>
-													<li class="dropdown dropdown-mega">
-														<a class="dropdown-item dropdown-toggle active" href="{{ route('projects') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('projects') }}">
 															Projects
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('products') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('front.products') }}">
 															Products
 														</a>
 													</li>
-													<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="{{ route('articles') }}">
+													<li class="nav-item">
+														<a class="nav-link border-bottom-0" href="{{ route('articles') }}">
 															Articles
 														</a>
 													</li>
+                                                    @if (Route::has('login') && Auth::check())
+                                                    <li class="nav-item">
+														@if(auth()->user()->role == 'supplier')
+                                                        <a href="{{ route('supplier.profile') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @elseif (auth()->user()->role == 'admin')
+                                                        <a href="{{ route('admin.dashboard') }}" class="nav-link border-bottom-0">
+                                                             {{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @else
+                                                        <a href="" class="nav-link border-bottom-0">
+                                                            <{{ substr(Auth::user()->name, 0,  6) }}
+                                                        </a>
+                                                        @endif
+													</li>
+                                                    @elseif (Route::has('login') && !Auth::check())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link border-bottom-0" href="{{ route('login') }}">
+                                                         <em class="icon ni ni-signout"></em><span>Sign In</span>
+                                                     </a>
+                                                    </li>
+                                                    @endif
 												</ul>
 											</nav>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
+                                        <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav" style="border-radius: 10%;
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                            height: 45px;">
+                                            <i class="fas fa-bars text-center"></i>
+                                        </button>
+                                        <div class="header-nav-features header-nav-features-no-border header-nav-features-md-show-border d-none d-md-inline-flex">
+                                            <div class="header-nav-feature header-nav-features-search d-inline-flex">
+                                                <a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+                                                <div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
+                                                    <form role="search" action="{{ route('professional.search') }}" method="get">
+                                                        <div class="simple-search input-group">
+                                                            <input class="form-control text-1" iid="professional_search" name="professional_search" type="search" value="" placeholder="search your professionals">
+                                                            <button class="btn" type="submit">
+                                                                <i class="fas fa-search header-nav-top-icon"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 									</div>
-									<div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-										<div class="header-nav-feature header-nav-features-search d-inline-flex">
-											<a href="#" class="header-nav-features-toggle text-decoration-none" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-											<div class="header-nav-features-dropdown header-nav-features-dropdown-mobile-fixed" id="headerTopSearchDropdown">
-												<form role="search" action="page-search-results.html" method="get">
-													<div class="simple-search input-group">
-														<input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
-														<button class="btn" type="submit">
-															<i class="fas fa-search header-nav-top-icon"></i>
-														</button>
-													</div>
-												</form>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -179,8 +206,7 @@
                                         <div class="select-custom">
                                             <select name="orderby" class="form-control">
                                                 <option value="menu_order" selected="selected">Default sorting</option>
-                                                <option value="popularity">Sort by popularity</option>
-                                                <option value="rating">Sort by average rating</option>
+                                                <option value="popularity">Sort by latest</option>
                                             </select>
                                         </div>
                                         <!-- End .select-custom -->
@@ -198,8 +224,6 @@
                                         <div class="select-custom">
                                             <select name="count" class="form-control">
                                                 <option value="12">12</option>
-                                                <option value="24">24</option>
-                                                <option value="36">36</option>
                                             </select>
                                         </div>
                                         <!-- End .select-custom -->
@@ -221,377 +245,88 @@
 
                             <div class="row products-group">
                                 <!-- product-1 -->
+                                @foreach ($projects as $project)
                                 <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
+                                    <a href="{{ route('projectDetails',encrypt($project->id)) }}">
                                         <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
+                                            <img class="card-img-top" src="{{ asset($project->thumbnail_image) }}" alt="Card Image" style="height: 175px; width:262px">
                                             <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
+                                                <h4 class="card-title mb-1 text-4 font-weight-bold">{{ $project->project_name }}</h4>
+                                                <p style="color: #777;" class="card-text mb-2 pb-1">{{ substr($project->description, 0,100) }}</p>
+                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">{{ $project->category_title }}</p>
+                                                @if ($project->professional_name == null)
+                                                <p class="text-primary  mb-2 pb-1">{{ $project->company_name }}</p>
+                                                @else
+                                                <p class="text-primary  mb-2 pb-1">{{ $project->professional_name }}</p>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-                                <!-- End .col-sm-4 -->
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
 
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-                                <!-- product-1 -->
-                                <div class="col-xl-4 col-md-4 col-6">
-                                    <a href="{{ route('projectDetails') }}">
-                                        <div class="card">
-                                            <img class="card-img-top" src="front/assets/img/demos/business-consulting/slides/sliderdown.jpg" alt="Card Image">
-                                            <div class="card-body">
-                                                <h4 class="card-title mb-1 text-4 font-weight-bold">Lorem ipsum</h4>
-                                                <p style="color: #777;" class="card-text mb-2 pb-1">Lorem ipsum dolor sit amet, it onsectetur adipiscing elit.</p>
-                                                <p style="color: #777;" class="card-text font-weight-bold mb-2 pb-1">Name of Contractor</p>
-                                                <p class="text-primary  mb-2 pb-1">XYZ</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End .col-sm-4 -->
-
-
+                                @endforeach
                             </div>
                             <!-- End .row -->
 
                             <nav class="toolbox toolbox-pagination">
                                 <div class="toolbox-item toolbox-show">
-                                    <label>Show:</label>
 
-                                    <div class="select-custom">
-                                        <select name="count" class="form-control">
-                                            <option value="12">12</option>
-                                            <option value="24">24</option>
-                                            <option value="36">36</option>
-                                        </select>
+
+                                    <div class="">
+
                                     </div>
                                     <!-- End .select-custom -->
                                 </div>
                                 <!-- End .toolbox-item -->
-
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active">
-                                      <a class="page-link" href="#" style="color: white">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                      <a class="page-link" href="#">Next</a>
-                                    </li>
-                                  </ul>
+                                {{ $projects->render() }}
                             </nav>
                         </div>
                         <!-- End .col-lg-9 -->
 
                         <div class="sidebar-overlay"></div>
                         <aside class="sidebar-shop col-lg-3 order-lg-first mobile-sidebar">
-                            <div class="sidebar-wrapper">
-                                <div class="widget1" style="padding-top: 15px; padding-bottom:15px;">
-                                    <h3 class="widget1-title">
-                                        <a  href="#widget-body-0" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-0" style="color: white">All Projects Categories</a>
-                                    </h3>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
+                            <div class="pin-wrapper" style="height: 1212.8px;"><div class="sidebar-wrapper" style="border-bottom: 0px none rgb(119, 119, 119); width: 280px;">
                                 <div class="widget">
                                     <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-2">Projects category 1</a>
+                                        <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true" aria-controls="widget-body-2">Categories</a>
                                     </h3>
 
-                                    <div class="collapse" id="widget-body-2">
-                                        <div class="collapse" id="widget-body-2">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
+                                    <div class="collapse show" id="widget-body-2" style="height: 300px; overflow-y: scroll;">
+                                        <div class="widget-body">
+                                            <ul class="cat-list">
+                                                @foreach ($categories as $category)
+                                                <li><a href="{{ route('front.category.projects',encrypt($category->id)) }}">{{ $category->category_title }}</a></li>
+                                                @endforeach
+
+                                            </ul>
                                         </div>
-                                        <!-- End .collapse -->
+                                        <!-- End .widget-body -->
                                     </div>
                                     <!-- End .collapse -->
                                 </div>
                                 <!-- End .widget -->
+
                                 <div class="widget">
                                     <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-3">Projects category 2</a>
+                                        <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Location</a>
                                     </h3>
+                                    <div class="collapse show" id="widget-body-3" style="height: 300px; overflow-y: scroll;">
+                                        <div class="widget-body pb-0">
+                                            <ul class="cat-list">
+                                                @foreach ($countries as $country)
 
-                                    <div class="collapse" id="widget-body-3">
-                                        <div class="collapse" id="widget-body-3">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
+                                                <li><a href="{{ route('front.location.projects',encrypt($country->id)) }}">{{ $country->country_name }}</a></li>
+
+                                                @endforeach
+                                            </ul>
                                         </div>
-                                        <!-- End .collapse -->
+                                        <!-- End .widget-body -->
                                     </div>
                                     <!-- End .collapse -->
                                 </div>
                                 <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-4">Projects category 3</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-4">
-                                        <div class="collapse" id="widget-body-4">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-5">Projects category 4</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-5">
-                                        <div class="collapse" id="widget-body-5">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-5">Projects category 5</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-5">
-                                        <div class="collapse" id="widget-body-5">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                                <div class="widget">
-                                    <h3 class="widget-title">
-                                        <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="false"
-                                            aria-controls="widget-body-5">Projects category 6</a>
-                                    </h3>
-
-                                    <div class="collapse" id="widget-body-5">
-                                        <div class="collapse" id="widget-body-5">
-                                            <div class="widget-body">
-                                                <ul class="cat-list">
-                                                    <li class="active">
-                                                        <a href="#">Lorem Ipsum....</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- End .widget-body -->
-                                        </div>
-                                        <!-- End .collapse -->
-                                    </div>
-                                    <!-- End .collapse -->
-                                </div>
-                                <!-- End .widget -->
-                            </div>
+                            </div></div>
                             <!-- End .sidebar-wrapper -->
                         </aside>
                         <!-- End .col-lg-3 -->
@@ -632,9 +367,10 @@
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 text-color-dark mb-3">CONTACT US</h5>
 
-								<p class="m-0">225 Street Name, City Name</p>
-								<p class="m-0"><a class="text-color-default" href="tel:8001234567">(800) 0157745</a></p>
-								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">mail@example.com</a></p>
+							<p class="m-0">Archibazaar</p>
+                            <p class="m-0">31 Rochester Drive Level 24 Singapore 138637</p>
+								<p class="m-0"><a class="text-color-default" href="tel:8001234567">Tel: +65 6200 7994</a></p>
+								<p class="m-0"><a class="text-color-default" href="mailto:mail@example.com">enquiry@archibazaar.com</a></p>
 
 						</div>
 						<div class="col-md-6 col-lg-2">
@@ -652,12 +388,12 @@
 						<div class="row py-4">
 							<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 								<a href="index.html" class="logo pe-0 pe-lg-3">
-                                    <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4>
-									{{-- <img alt="" src="img/logo-footer-dark.png" height="32"> --}}
+                                    {{-- <h4 class="text-color-dark font-weight-bold text-8 pb-4 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"><a href="{{route('home')}}" style="color: #444;">logo</a></h4> --}}
+									<img alt="" src="{{ asset('front/assets/img/demos/business-consulting/slides/logo.png') }}" height="32">
 								</a>
 							</div>
 							<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-								<p>© Copyright 2021. All Rights Reserved.</p>
+								<p>© Copyright 2023. All Rights Reserved.</p>
 							</div>
 							<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
 								<nav id="sub-menu">

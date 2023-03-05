@@ -13,7 +13,7 @@ class ProductCategoryController extends Controller
     }
 
     public function index(){
-        $data['categories'] = category_product::orderBy('id','DESC')->paginate(5);
+        $data['categories'] = category_product::orderBy('id','DESC')->get();
         return view('admin.productCategory.index' ,$data);
     }
 

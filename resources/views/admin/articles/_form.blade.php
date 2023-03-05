@@ -13,7 +13,7 @@
                 <div class="custom-select-1">
                     <select id="user_time_zone" class="form-control text-3 h-auto py-2 valid" name="professional_id" size="0" aria-invalid="false">
                         <option selected="" disabled="" >Select Professional</option>
-                        @foreach($professional as $key=>$professional)
+                        @foreach($professionals as $key=>$professional)
                             <option  @if(old('professional_id',isset($article)?$article->professional_id:null)  == $professional->id) selected @endif value="{{$professional->id}}">{{$professional->name}}</option>
                         @endforeach
                     </select>

@@ -4,7 +4,7 @@
             <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
         </div>
 
-        <h2 class="card-title">Professional</h2>
+        <h2 class="card-title">Projects</h2>
     </header>
     <div class="card-body">
         <div class="form-group row">

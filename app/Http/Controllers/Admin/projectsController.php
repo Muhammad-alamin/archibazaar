@@ -72,7 +72,7 @@ class projectsController extends Controller
                 $products = $request->file('multiple_image');
 
                 foreach ( $products as $eachProduct) {
-                    $path = 'images/products/multiple_image/';
+                    $path = 'images/projects/multiple_image/';
                     $file_name = rand(0000,9999).'-'.$eachProduct->getClientOriginalName();
                     $eachProduct->move($path,$file_name);
                     //Image::make($eachProduct)->resize(500,370)->save($path.$file_name);

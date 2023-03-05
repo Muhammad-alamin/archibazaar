@@ -73,6 +73,35 @@
                                     @error('country')<i class="text-danger">{{$message}}</i>@enderror
 
                                 </div>
+                            </div>{{old('specification', isset($product)?$product->specification:null)}}
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Product size</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" name="product_size" id="product_size" value="{{old('product_size', isset($product)?$product->product_size:null)}}" placeholder="Enter product size">
+                                    @error('product_size')<i class="text-danger">{{$message}}</i>@enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">contact supplier (Address/Number)</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" name="contact_supplier" id="contact_supplier" value="{{old('contact_supplier', isset($product)?$product->contact_supplier:null)}}" placeholder=" contact supplier">
+                                    @error('contact supplier')<i class="text-danger">{{$message}}</i>@enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Regular price</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" name="regular_price" id="regular_price" value="{{old('regular_price', isset($product)?$product->regular_price:null)}}" placeholder="Enter product Regular price">
+                                    @error('regular_price')<i class="text-danger">{{$message}}</i>@enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2 ">Discount_price</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" name="discount_price" id="discount_price" value="{{old('discount_price', isset($product)?$product->discount_price:null)}}" placeholder="Enter product Discount price">
+                                    @error('discount_price')<i class="text-danger">{{$message}}</i>@enderror
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label line-height-9 pt-2 text-2">Image</label>
